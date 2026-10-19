@@ -1,0 +1,126 @@
+/* =========================================================
+   HEADER — bố cục 3 tầng giống Yumbi Food, tông đỏ FoodTrend
+   1) Thanh thông tin trên cùng  2) Hàng chính  3) Thanh menu
+========================================================= */
+
+/* ---- 1) Top bar ---- */
+.hd-topbar { background: var(--color-primary-dark); color: #fff; }
+.hd-topbar-inner { display: flex; align-items: center; justify-content: space-between; height: 38px; gap: 16px; }
+.hd-topbar-slogan {
+  font-family: var(--font-display); font-weight: 700; font-size: 13.5px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.hd-topbar-info { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; font-size: 13px; }
+.hd-topbar-info li {
+  display: flex; align-items: center; gap: 7px; padding: 0 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.28); white-space: nowrap;
+}
+.hd-topbar-info li:first-child { border-left: none; }
+.hd-topbar-info li:last-child { padding-right: 0; }
+.hd-topbar-info a:hover { text-decoration: underline; }
+
+/* ---- 2) Hàng chính ---- */
+.hd-sticky { position: sticky; top: 0; z-index: 50; background: var(--color-surface); box-shadow: 0 2px 8px rgba(42, 24, 16, 0.06); }
+.hd-main { display: flex; align-items: center; gap: 28px; height: 84px; }
+
+.hd-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.hd-logo-mark { font-size: 30px; line-height: 1; }
+.hd-logo-text { font-family: var(--font-display); font-weight: 800; font-size: 24px; color: var(--color-primary); letter-spacing: -0.01em; }
+.hd-logo-text span { color: var(--color-ink); }
+
+.hd-search { flex: 1; max-width: 620px; position: relative; }
+.hd-search input {
+  height: 46px; border-radius: 999px; background: #F5F1EB;
+  border: 1.5px solid var(--color-line); padding: 0 54px 0 20px;
+}
+.hd-search button {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent;
+  color: var(--color-ink); display: flex; align-items: center; justify-content: center;
+}
+.hd-search button:hover { color: var(--color-primary); }
+
+.hd-right { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+.hd-auth {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 700; font-size: 14.5px;
+  text-transform: uppercase; letter-spacing: 0.02em; color: var(--color-ink);
+}
+.hd-auth a:hover, .hd-auth-btn:hover { color: var(--color-primary); }
+.hd-auth-text { display: flex; align-items: center; gap: 8px; }
+.hd-auth-sep { color: #C9B79B; font-weight: 400; }
+.hd-auth-icon { display: none; align-items: center; }
+.hd-auth-btn {
+  display: flex; align-items: center; gap: 8px; background: none; border: none; padding: 0;
+  font: inherit; text-transform: inherit; letter-spacing: inherit; color: inherit;
+}
+.hd-divider { width: 1px; height: 34px; background: var(--color-line); }
+
+.hd-cart {
+  position: relative; display: inline-flex; align-items: center; gap: 10px;
+  background: var(--color-primary); color: #fff; height: 46px; padding: 0 22px;
+  border-radius: 999px; font-family: var(--font-display); font-weight: 700; font-size: 14.5px;
+  text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(214, 40, 57, 0.3); transition: background 0.15s ease;
+}
+.hd-cart:hover { background: var(--color-primary-dark); }
+.hd-cart-badge {
+  position: absolute; top: -9px; right: -6px; min-width: 24px; height: 24px; padding: 0 6px;
+  border-radius: 999px; background: var(--color-accent); color: var(--color-ink);
+  border: 2px solid #fff; font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hd-account { position: relative; }
+.hd-account-menu { position: absolute; right: 0; top: calc(100% + 14px); min-width: 230px; padding: 8px; z-index: 60; text-transform: none; }
+.hd-account-menu a, .hd-account-menu button {
+  display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 8px; border: none;
+  background: none; font-family: var(--font-body); font-size: 14.5px; font-weight: 500; color: var(--color-ink);
+}
+.hd-account-menu a:hover, .hd-account-menu button:hover { background: var(--color-primary-tint); color: var(--color-primary-dark); }
+.hd-account-menu hr { border: none; border-top: 1px solid var(--color-line-soft); margin: 6px 0; }
+.hd-account-menu .is-danger { color: var(--color-primary); }
+
+/* ---- 3) Thanh menu ---- */
+.hd-nav { background: #F3EFEA; border-top: 1px solid var(--color-line-soft); }
+.hd-nav-list { display: flex; justify-content: center; gap: 6px; list-style: none; margin: 0 auto; padding: 0; }
+.hd-nav-list > li { position: relative; }
+.hd-nav-link {
+  display: flex; align-items: center; gap: 6px; height: 50px; padding: 0 18px;
+  font-family: var(--font-display); font-weight: 700; font-size: 15px;
+  text-transform: uppercase; letter-spacing: 0.02em; color: var(--color-primary);
+  border-top: 3px solid transparent; transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+.hd-nav-link:hover { color: var(--color-primary-dark); background: rgba(214, 40, 57, 0.06); }
+.hd-nav-link.is-active { border-top-color: var(--color-primary); color: var(--color-primary-dark); }
+.hd-chevron { transition: transform 0.15s ease; }
+.hd-nav-dropdown:hover .hd-chevron, .hd-nav-dropdown:focus-within .hd-chevron { transform: rotate(180deg); }
+
+.hd-dropdown {
+  display: none; position: absolute; left: 0; top: 100%; min-width: 270px; padding: 8px; z-index: 70;
+  background: #fff; border: 1px solid var(--color-line-soft); border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md); box-shadow: var(--shadow-pop);
+}
+.hd-nav-dropdown:hover .hd-dropdown, .hd-nav-dropdown:focus-within .hd-dropdown { display: block; }
+.hd-dropdown a { display: block; padding: 10px 14px; border-radius: 8px; font-size: 14.5px; font-weight: 500; color: var(--color-ink); }
+.hd-dropdown a:hover { background: var(--color-primary-tint); color: var(--color-primary-dark); }
+.hd-dropdown .hd-dropdown-all { font-weight: 700; border-bottom: 1px solid var(--color-line-soft); border-radius: 8px 8px 0 0; margin-bottom: 4px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .hd-topbar-info li:not(:last-child) { display: none; }
+  .hd-topbar-slogan { font-size: 12px; }
+  .hd-main { height: auto; flex-wrap: wrap; gap: 10px 14px; padding-top: 12px; padding-bottom: 12px; }
+  .hd-search { order: 3; flex-basis: 100%; max-width: none; }
+  .hd-right { gap: 14px; }
+  .hd-auth-text, .hd-divider { display: none; }
+  .hd-auth-icon { display: flex; }
+  .hd-nav-list { justify-content: flex-start; overflow-x: auto; }
+  .hd-nav-link { padding: 0 14px; white-space: nowrap; }
+  .hd-dropdown, .hd-chevron { display: none !important; }
+}
+@media (max-width: 520px) {
+  .hd-cart-label { display: none; }
+  .hd-cart { padding: 0 16px; }
+}

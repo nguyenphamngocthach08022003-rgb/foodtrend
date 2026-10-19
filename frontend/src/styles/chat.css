@@ -1,0 +1,89 @@
+/* =========================================================
+   CHAT — widget nổi (khách) + layout 2 cột (admin)
+========================================================= */
+
+/* ---- Floating widget (khách hàng) ---- */
+.cw-root { position: fixed; right: 22px; bottom: 22px; z-index: 200; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+
+.cw-fab {
+  width: 58px; height: 58px; border-radius: 50%; border: none; background: var(--color-primary);
+  color: #fff; font-size: 24px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(214, 40, 57, 0.4); position: relative; transition: transform 0.15s ease, background 0.15s ease;
+}
+.cw-fab:hover { background: var(--color-primary-dark); transform: scale(1.06); }
+.cw-fab-badge {
+  position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 5px;
+  border-radius: 999px; background: var(--color-accent); color: var(--color-ink); border: 2px solid #fff;
+  font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+}
+
+.cw-panel {
+  width: 340px; height: 460px; display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: var(--shadow-pop); animation: cw-pop-in 0.16s ease;
+}
+@keyframes cw-pop-in { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+.cw-header {
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 16px;
+  background: var(--color-primary); color: #fff; flex-shrink: 0;
+}
+.cw-status { font-size: 11.5px; opacity: 0.9; margin-top: 2px; }
+.cw-close { background: none; border: none; color: #fff; font-size: 16px; opacity: 0.85; }
+.cw-close:hover { opacity: 1; }
+
+.cw-messages { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: var(--color-bg); }
+.cw-empty { text-align: center; color: var(--color-ink-soft); font-size: 13px; margin: auto; padding: 0 20px; }
+
+.cw-bubble-row { display: flex; }
+.cw-bubble-row.is-mine { justify-content: flex-end; }
+.cw-bubble {
+  max-width: 78%; padding: 9px 12px; border-radius: 14px; font-size: 13.5px; line-height: 1.45;
+  background: #fff; border: 1px solid var(--color-line-soft); border-bottom-left-radius: 4px;
+  position: relative; white-space: pre-wrap; word-break: break-word;
+}
+.cw-bubble-row.is-mine .cw-bubble {
+  background: var(--color-primary); color: #fff; border: none; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px;
+}
+.cw-time { display: block; font-size: 10px; opacity: 0.65; margin-top: 4px; text-align: right; }
+
+.cw-input-row { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--color-line-soft); flex-shrink: 0; background: #fff; }
+.cw-input-row input { flex: 1; }
+
+/* ---- Admin chat page ---- */
+.ac-layout { display: grid; grid-template-columns: 300px 1fr; height: calc(100vh - 56px); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-card); }
+
+.ac-list { border-right: 1px solid var(--color-line-soft); overflow-y: auto; }
+.ac-list-item {
+  display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-bottom: 1px solid var(--color-line-soft);
+  cursor: pointer; transition: background 0.12s ease;
+}
+.ac-list-item:hover { background: var(--color-bg); }
+.ac-list-item.is-active { background: var(--color-primary-tint); }
+.ac-list-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ac-list-name { font-weight: 700; font-size: 14px; }
+.ac-list-time { font-size: 11px; color: var(--color-ink-soft); white-space: nowrap; }
+.ac-list-preview { font-size: 12.5px; color: var(--color-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ac-unread-badge {
+  min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--color-primary); color: #fff;
+  font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.ac-chat { display: flex; flex-direction: column; min-width: 0; }
+.ac-chat-header { padding: 16px 20px; border-bottom: 1px solid var(--color-line-soft); flex-shrink: 0; }
+.ac-chat-header .ac-sub { font-size: 12.5px; color: var(--color-ink-soft); margin-top: 2px; }
+.ac-chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: var(--color-bg); }
+.ac-chat-input { display: flex; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--color-line-soft); flex-shrink: 0; background: #fff; }
+.ac-chat-input input { flex: 1; }
+.ac-empty-state { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--color-ink-soft); font-size: 14px; }
+
+@media (max-width: 760px) {
+  .ac-layout { grid-template-columns: 1fr; }
+  .ac-list { display: none; }
+}
+
+/* ---- Widget: khung thông báo (chưa đăng nhập / admin / lỗi) ---- */
+.cw-notice { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px 26px; gap: 6px; background: var(--color-bg); }
+.cw-notice-emoji { font-size: 44px; line-height: 1; margin-bottom: 4px; }
+.cw-notice h4 { font-size: 1.05rem; margin: 0; }
+.cw-notice p { font-size: 13.5px; margin: 4px 0 10px; }
+.cw-notice-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
