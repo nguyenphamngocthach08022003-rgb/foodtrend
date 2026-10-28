@@ -1,0 +1,222 @@
+/* FoodTrend - Bank Transfer QR */
+.bank-page {
+  max-width: 680px;
+  margin: 36px auto;
+  padding: 0 16px 40px;
+  color: #30231f;
+}
+
+.bank-card {
+  padding: 28px;
+  border: 1px solid #f0e2d1;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(91, 53, 25, 0.08);
+  text-align: center;
+}
+
+.bank-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.bank-logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: #fff0e9;
+  font-size: 27px;
+}
+
+.bank-heading h1 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.bank-heading p {
+  margin: 6px 0 0;
+  color: #82736a;
+  font-size: 14px;
+}
+
+.bank-order-code {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #faf6f1;
+  color: #76665b;
+}
+
+.bank-order-code strong {
+  color: #a51e30;
+  font-size: 18px;
+}
+
+.bank-amount {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 0;
+}
+
+.bank-amount span {
+  color: #82736a;
+}
+
+.bank-amount strong {
+  color: #b21f32;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.bank-qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border: 1px solid #eee4d9;
+  border-radius: 16px;
+}
+
+.bank-qr-placeholder {
+  width: 210px;
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.bank-qr-placeholder svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bank-qr-box strong {
+  color: #a51e30;
+}
+
+.bank-qr-box span {
+  max-width: 360px;
+  color: #89796e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.bank-info {
+  margin-top: 18px;
+  padding: 4px 18px;
+  border-radius: 14px;
+  background: #faf7f3;
+  text-align: left;
+}
+
+.bank-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee4d9;
+}
+
+.bank-info-row:last-child {
+  border-bottom: 0;
+}
+
+.bank-info-label {
+  margin-bottom: 6px;
+  color: #82736a;
+  font-size: 13px;
+}
+
+.bank-info-value {
+  overflow-wrap: anywhere;
+  color: #30231f;
+  font-size: 15px;
+}
+
+.bank-copy-btn {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border: 1px solid #e8c9c4;
+  border-radius: 8px;
+  background: #fff;
+  color: #a51e30;
+  cursor: pointer;
+}
+
+.bank-copy-btn:hover {
+  background: #fff0ee;
+}
+
+.bank-payment-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff5e5;
+  color: #99621a;
+}
+
+.bank-payment-status.is-paid {
+  background: #eaf8ef;
+  color: #237844;
+}
+
+.bank-notice {
+  margin: 18px 0;
+  color: #82736a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.bank-order-link {
+  display: inline-block;
+  color: #b21f32;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bank-order-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .bank-page {
+    margin-top: 20px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .bank-card {
+    padding: 20px 15px;
+    border-radius: 17px;
+  }
+
+  .bank-heading h1 {
+    font-size: 20px;
+  }
+
+  .bank-amount strong {
+    font-size: 29px;
+  }
+
+  .bank-info {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}

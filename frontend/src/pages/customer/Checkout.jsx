@@ -176,8 +176,9 @@ export default function Checkout() {
       });
 
       await refreshCart();
-      if (paymentMethod === "PAYPAL") {
-        navigate(`/thanh-toan/paypal-mock/${data.data.id}`);
+
+      if (paymentMethod === "BANK_TRANSFER") {
+        navigate(`/thanh-toan/chuyen-khoan/${data.data.id}`);
       } else {
         navigate(`/dat-hang-thanh-cong/${data.data.id}`);
       }

@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
-const env = require('../../config/env');
+const nodemailer = require("nodemailer");
+const env = require("../../config/env");
 
 let transporter = null;
 
@@ -20,7 +20,13 @@ function getTransporter() {
 }
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
 }
 
 // Khung email chung: tiêu đề đỏ thương hiệu, nội dung, chân trang
@@ -58,17 +64,26 @@ function codeBox(code) {
     </div></div>`;
 }
 
-const paragraph = (html) => `<p style="margin:0 0 12px;font-size:15px;line-height:1.65;color:#4a372b;">${html}</p>`;
+const paragraph = (html) =>
+  `<p style="margin:0 0 12px;font-size:15px;line-height:1.65;color:#4a372b;">${html}</p>`;
 
 async function send({ to, subject, html, text }) {
   const tp = getTransporter();
   if (!tp) {
     // Chưa cấu hình Gmail: chỉ in ra console (CHỈ phục vụ dev). Nơi gọi biết qua devMode.
     // eslint-disable-next-line no-console
-    console.log(`\n[mail] ⚠️  Chưa cấu hình MAIL_USER / MAIL_APP_PASSWORD -> KHÔNG gửi email thật.\n[mail]    To: ${to}\n[mail]    Subject: ${subject}\n`);
+    console.log(
+      `\n[mail] ⚠️  Chưa cấu hình MAIL_USER / MAIL_APP_PASSWORD -> KHÔNG gửi email thật.\n[mail]    To: ${to}\n[mail]    Subject: ${subject}\n`,
+    );
     return { devMode: true };
   }
-  await tp.sendMail({ from: `"${env.mail.fromName}" <${env.mail.user}>`, to, subject, text, html });
+  await tp.sendMail({
+    from: `"${env.mail.fromName}" <${env.mail.user}>`,
+    to,
+    subject,
+    text,
+    html,
+  });
   return { devMode: false };
 }
 
@@ -78,9 +93,13 @@ function sendRegisterCode({ to, name, code, ttlMinutes }) {
     preheader: `Mã xác nhận: ${code} (hết hạn sau ${ttlMinutes} phút)`,
     title: `Chào ${escapeHtml(name)}, chỉ còn một bước nữa thôi! 🎉`,
     bodyHtml:
-      paragraph('Cảm ơn bạn đã đăng ký tài khoản FoodTrend. Nhập mã xác nhận dưới đây vào trang đăng ký để hoàn tất:') +
+      paragraph(
+        "Cảm ơn bạn đã đăng ký tài khoản FoodTrend. Nhập mã xác nhận dưới đây vào trang đăng ký để hoàn tất:",
+      ) +
       codeBox(code) +
-      paragraph(`Mã có hiệu lực trong <b>${ttlMinutes} phút</b>. Vì sự an toàn của bạn, tuyệt đối <b>không chia sẻ mã này</b> cho bất kỳ ai, kể cả người tự xưng là nhân viên FoodTrend.`),
+      paragraph(
+        `Mã có hiệu lực trong <b>${ttlMinutes} phút</b>. Vì sự an toàn của bạn, tuyệt đối <b>không chia sẻ mã này</b> cho bất kỳ ai, kể cả người tự xưng là nhân viên FoodTrend.`,
+      ),
   });
   const text = `Chào ${name},\n\nMã xác nhận đăng ký FoodTrend của bạn là: ${code}\nMã có hiệu lực trong ${ttlMinutes} phút. Không chia sẻ mã này cho bất kỳ ai.\n\nNếu bạn không đăng ký, hãy bỏ qua email này.`;
   return send({ to, subject, html, text });
@@ -90,24 +109,32 @@ function sendResetCode({ to, name, code, ttlMinutes }) {
   const subject = `${code} là mã đặt lại mật khẩu FoodTrend`;
   const html = layout({
     preheader: `Mã đặt lại mật khẩu: ${code} (hết hạn sau ${ttlMinutes} phút)`,
-    title: 'Yêu cầu đặt lại mật khẩu 🔐',
+    title: "Yêu cầu đặt lại mật khẩu 🔐",
     bodyHtml:
-      paragraph(`Chào ${escapeHtml(name)}, chúng tôi nhận được yêu cầu lấy lại mật khẩu cho tài khoản FoodTrend của bạn. Nhập mã dưới đây để tạo mật khẩu mới:`) +
+      paragraph(
+        `Chào ${escapeHtml(name)}, chúng tôi nhận được yêu cầu lấy lại mật khẩu cho tài khoản FoodTrend của bạn. Nhập mã dưới đây để tạo mật khẩu mới:`,
+      ) +
       codeBox(code) +
-      paragraph(`Mã có hiệu lực trong <b>${ttlMinutes} phút</b>. Nếu không phải bạn yêu cầu, hãy bỏ qua email này và cân nhắc đổi mật khẩu nếu nghi ngờ bị lộ.`),
+      paragraph(
+        `Mã có hiệu lực trong <b>${ttlMinutes} phút</b>. Nếu không phải bạn yêu cầu, hãy bỏ qua email này và cân nhắc đổi mật khẩu nếu nghi ngờ bị lộ.`,
+      ),
   });
   const text = `Chào ${name},\n\nMã đặt lại mật khẩu FoodTrend của bạn là: ${code}\nMã có hiệu lực trong ${ttlMinutes} phút.\n\nNếu không phải bạn yêu cầu, hãy bỏ qua email này.`;
   return send({ to, subject, html, text });
 }
 
 function sendPasswordChanged({ to, name }) {
-  const subject = 'Mật khẩu FoodTrend của bạn vừa được thay đổi';
+  const subject = "Mật khẩu FoodTrend của bạn vừa được thay đổi";
   const html = layout({
-    preheader: 'Mật khẩu tài khoản vừa được đặt lại thành công.',
-    title: 'Mật khẩu đã được thay đổi ✅',
+    preheader: "Mật khẩu tài khoản vừa được đặt lại thành công.",
+    title: "Mật khẩu đã được thay đổi ✅",
     bodyHtml:
-      paragraph(`Chào ${escapeHtml(name)}, mật khẩu tài khoản FoodTrend của bạn vừa được đặt lại thành công.`) +
-      paragraph('Nếu <b>không phải bạn</b> thực hiện, hãy lập tức dùng chức năng "Quên mật khẩu" để đặt lại và liên hệ shop để được hỗ trợ.'),
+      paragraph(
+        `Chào ${escapeHtml(name)}, mật khẩu tài khoản FoodTrend của bạn vừa được đặt lại thành công.`,
+      ) +
+      paragraph(
+        'Nếu <b>không phải bạn</b> thực hiện, hãy lập tức dùng chức năng "Quên mật khẩu" để đặt lại và liên hệ shop để được hỗ trợ.',
+      ),
   });
   const text = `Chào ${name},\n\nMật khẩu tài khoản FoodTrend của bạn vừa được đặt lại. Nếu không phải bạn, hãy đặt lại mật khẩu ngay và liên hệ shop.`;
   return send({ to, subject, html, text });
@@ -128,13 +155,79 @@ async function verifyConnection() {
 // Giải thích lỗi SMTP bằng tiếng Việt, dễ hiểu
 function explainMailError(err) {
   const msg = String((err && (err.response || err.message)) || err);
-  if (err && (err.code === 'EAUTH' || /535|Username and Password not accepted|Invalid login/i.test(msg))) {
+  if (
+    err &&
+    (err.code === "EAUTH" ||
+      /535|Username and Password not accepted|Invalid login/i.test(msg))
+  ) {
     return 'Gmail từ chối đăng nhập. Hãy dùng "Mật khẩu ứng dụng" 16 ký tự (không phải mật khẩu Gmail thường) và đã bật Xác minh 2 bước.';
   }
-  if (err && (['ECONNECTION', 'ETIMEDOUT', 'ESOCKET'].includes(err.code) || /ENOTFOUND|ECONNREFUSED/i.test(msg))) {
-    return 'Không kết nối được tới máy chủ Gmail (smtp.gmail.com:465). Kiểm tra Internet / tường lửa / antivirus.';
+  if (
+    err &&
+    (["ECONNECTION", "ETIMEDOUT", "ESOCKET"].includes(err.code) ||
+      /ENOTFOUND|ECONNREFUSED/i.test(msg))
+  ) {
+    return "Không kết nối được tới máy chủ Gmail (smtp.gmail.com:465). Kiểm tra Internet / tường lửa / antivirus.";
   }
   return msg;
 }
 
-module.exports = { sendRegisterCode, sendResetCode, sendPasswordChanged, verifyConnection, explainMailError };
+module.exports = {
+  sendRegisterCode,
+  sendResetCode,
+  sendPasswordChanged,
+  sendPaymentConfirmed,
+  verifyConnection,
+  explainMailError,
+};
+
+function sendPaymentConfirmed({ to, name, orderCode, totalAmount }) {
+  const subject = `FoodTrend xác nhận thanh toán thành công - ${orderCode}`;
+
+  const safeName = escapeHtml(name || "Quý khách");
+  const safeOrderCode = escapeHtml(orderCode);
+  const safeAmount = escapeHtml(
+    Number(totalAmount).toLocaleString("vi-VN") + " ₫",
+  );
+
+  const html = layout({
+    preheader: `Đơn hàng ${safeOrderCode} đã được xác nhận thanh toán.`,
+    title: "Thanh toán thành công! 🎉",
+    bodyHtml:
+      paragraph(`Xin chào <b>${safeName}</b>,`) +
+      paragraph(
+        "FoodTrend chân thành cảm ơn bạn đã tin tưởng và lựa chọn mua sắm tại cửa hàng chúng tôi.",
+      ) +
+      paragraph(
+        `Chúng tôi xác nhận đã nhận được thanh toán cho đơn hàng <b>${safeOrderCode}</b>.`,
+      ) +
+      `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0;background:#FBF3E7;border-radius:12px;">
+        <tr>
+          <td style="padding:16px 18px;font-size:14px;color:#6B5748;">Mã đơn hàng</td>
+          <td style="padding:16px 18px;font-size:14px;font-weight:700;text-align:right;color:#2A1810;">${safeOrderCode}</td>
+        </tr>
+        <tr>
+          <td style="padding:0 18px 16px;font-size:14px;color:#6B5748;">Tổng thanh toán</td>
+          <td style="padding:0 18px 16px;font-size:16px;font-weight:800;text-align:right;color:#D62839;">${safeAmount}</td>
+        </tr>
+        <tr>
+          <td style="padding:0 18px 16px;font-size:14px;color:#6B5748;">Trạng thái</td>
+          <td style="padding:0 18px 16px;font-size:14px;font-weight:700;text-align:right;color:#218838;">Đã thanh toán</td>
+        </tr>
+      </table>` +
+      paragraph(
+        "Đơn hàng của bạn sẽ tiếp tục được xử lý theo quy trình của FoodTrend. Cảm ơn bạn đã đồng hành cùng chúng tôi!",
+      ) +
+      paragraph("Trân trọng,<br><b>Đội ngũ FoodTrend</b>"),
+  });
+
+  const text =
+    `Xin chào ${name || "Quý khách"},\n\n` +
+    `FoodTrend xác nhận đã nhận được thanh toán cho đơn hàng ${orderCode}.\n` +
+    `Tổng thanh toán: ${safeAmount}\n` +
+    "Trạng thái: Đã thanh toán\n\n" +
+    "Cảm ơn bạn đã tin tưởng và mua sắm tại FoodTrend!\n" +
+    "Trân trọng,\nĐội ngũ FoodTrend";
+
+  return send({ to, subject, html, text });
+}
