@@ -396,9 +396,8 @@ export default function Checkout() {
               { value: "COD", label: "Thanh toán khi nhận hàng (COD)" },
               {
                 value: "BANK_TRANSFER",
-                label: "Chuyển khoản ngân hàng (giả lập — báo thành công ngay)",
+                label: "Chuyển khoản ngân hàng qua mã QR",
               },
-              { value: "PAYPAL", label: "PayPal (giả lập)" },
             ].map((option) => (
               <label
                 key={option.value}
